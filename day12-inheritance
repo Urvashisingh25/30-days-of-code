@@ -1,0 +1,37 @@
+
+
+class Student(Person):
+    #   Class Constructor 
+    #   Parameters:
+    #   firstName - A string denoting the Person's first name.
+    #   lastName - A string denoting the Person's last name.
+    #   id - An integer denoting the Person's ID number.
+    #   scores - An array of integers denoting the Person's test scores.
+    #
+    # Write your constructor here
+    
+    def __init__(self,fname,lname,idno,scr):
+        self.firstName=fname
+        self.lastName=lname
+        self.idNumber=idno
+        self.scores=scr
+
+    #   Function Name: calculate
+    #   Return: A character denoting the grade.
+    def calculate(self):
+        s=sum(self.scores)
+        avg=s//len(self.scores)
+        if avg>=90:
+            return "O"
+        elif avg>=80:
+            return "E"
+        elif avg>=70:
+            return "A"
+        elif avg>=55:
+            return "P"
+        elif avg>=40:
+            return "D"
+        else:
+            return "T"
+    # Write your function here
+
