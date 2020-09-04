@@ -1,0 +1,14 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+book={}
+n=int(input())
+book=dict(input().split() for _ in range(n))
+while(True):
+    try:
+        x=input()
+        if x in book.keys():
+            print(x+"="+book[x])
+        else:
+            print("Not found")
+    except:
+        break
+
