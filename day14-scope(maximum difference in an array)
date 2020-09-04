@@ -1,0 +1,24 @@
+class Difference:
+    def __init__(self, a):
+        self.__elements = a
+
+    # Add your code here
+    maximumDifference=0
+    def computeDifference(self):
+        n=len(self.__elements)
+        y=sorted(self.__elements)
+        x=abs(max(y)-min(y))
+        if x>self.maximumDifference:
+            self.maximumDifference=x
+        return self.maximumDifference
+        
+
+# End of Difference class
+
+_ = input()
+a = [int(e) for e in input().split(' ')]
+
+d = Difference(a)
+d.computeDifference()
+
+print(d.maximumDifference)
