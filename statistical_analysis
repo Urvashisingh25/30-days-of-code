@@ -1,0 +1,128 @@
+import math
+
+class StatisticCalculation:
+    def __init__(self,arr):
+        self.arr=arr
+        self.n=len(arr)
+
+    #calculating Sum
+    def sum_arr(self):
+        s=0
+        for i in arr:
+            s+=i
+        return s
+    
+    def find_mean(self):
+        mean=self.sum_arr()/(self.n)
+        return mean
+
+    #calculating median
+    def find_median(self):
+        if (self.n)%2:
+            median=self.arr[(self.n)//2]
+
+        else:
+            x=self.arr[(self.n)//2]
+            y=self.arr[(self.n//2)-1]
+            median=(x+y)/2
+        return median
+
+    #calculating range
+    def find_range(self):
+        mid_range=(max(self.arr)+min(self.arr))/2
+        return mid_range
+
+    def find_mode(self):
+        #calculating number of occurences of eachvalue
+        occurences=[]
+        for i in arr:
+            occurences.append(arr.count(i))
+        #storing data items with it number of occurences in a dictionary
+        d=dict(zip(arr,occurences))
+        #mode set
+        mode={k for (k,v) in d.items() if v==max(d.values())}
+        return mode
+
+    def five_number_summary(self):
+        #five number Summary
+        fns=[]
+        self.Q1=self.arr[self.n//4]
+        self.Q3=self.arr[(self.n*3)//4]
+        self.Q2=self.find_median()
+        fns.append(min(self.arr))
+        fns.append(self.Q1)
+        fns.append(self.Q2)
+        fns.append(self.Q3)
+        fns.append(max(self.arr))
+        return fns
+        
+    def find_iqr(self):
+        #IQR and outlier calculation
+        IQR=self.Q3-self.Q1
+        return IQR
+        
+    def find_outlier(self):
+        o=self.find_iqr()*1.5
+        for i in self.arr:
+            if i>(self.Q1+o):
+                print(i,end=" ")
+            if i<(self.Q3-o):
+                print(i,end=" ")
+    
+    def find_variance(self):
+        sum_mean_diff=0
+        for i in arr:
+            x=i-self.find_mean()
+            sum_mean_diff+=x**2
+        self.variance=(sum_mean_diff)/(self.n)
+        return self.variance
+    
+    def find_standardDev(self):
+        return math.sqrt(self.variance)
+        
+
+if __name__=='__main__':
+    
+    data_arr=[13,15,16,16,19,20,20,21,22,22,25,25,25,25,30,33,33,35,35,35,35,36,40,45,46,52,70]
+    
+    sd=StatisticCalculation(data_arr)
+    
+    print("Mean is:",sd.find_mean())
+    
+    print("Median is:",sd.find_median())
+    
+    print("Range is:",sd.find_range())
+    
+    print("Five Number Summary:",sd.five_number_summary())
+    
+    print("Mode",sd.find_mode())
+    
+    print("IQR",sd.find_iqr())
+    
+    print("outliers are:",end='')
+    
+    sd.find_outlier()
+    
+    print("\nVariance is:",sd.find_variance())
+    
+    print("Standard deviation=",sd.find_standardDev())
+
+#boxplot
+
+#our data
+arr=[13,15,16,16,19,20,20,21,22,22,25,25,25,25,30,33,33,35,35,35,35,36,40,45,46,52,70]
+
+import matplotlib as mp
+import matplotlib.pyplot as plt
+#Boxplot
+fig=plt.figure(1,figsize=(9,6))
+axes=fig.add_subplot(111)
+box=axes.boxplot(arr)
+
+
+#scatter plot
+x=range(27)#there are 27 data values
+plt.scatter(x,arr)
+plt.xlabel('sno  -->')
+plt.ylabel('data values  -->')
+plt.show()
