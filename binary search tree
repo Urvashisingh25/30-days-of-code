@@ -1,0 +1,136 @@
+class BinarySearchTree:
+    def __init__(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+    
+    def add_child(self,data):
+        #already existing value isnt added in bst
+        if data==self.data:
+            return 
+        #left side
+        if data<self.data:
+            if self.left:
+                self.left.add_child(data)
+            else:
+                self.left=BinarySearchTree(data)
+        
+        #right side
+        else:
+            if data>self.data:
+                if self.right:
+                    self.right.add_child(data)
+                else:
+                    self.right=BinarySearchTree(data)
+    
+    def pre_order_traversal(self):
+        
+        elements=[]
+        
+        elements.append(self.data)
+        
+        if self.left:
+            elements+=self.left.pre_order_traversal()
+        
+        if self.right:
+            elements+=self.right.pre_order_traversal()
+            
+        return elements
+        
+    def in_order_traversal(self):#ascending order(sorted)
+        
+        elements=[]
+        
+        #visit left sub tree
+        if self.left:
+            elements+=self.left.in_order_traversal()
+        
+        #visit root
+        elements.append(self.data)
+        
+        #visit right sub tree
+        if self.right:
+            elements+=self.right.in_order_traversal()
+        
+        return elements
+        
+            
+    
+    def post_order_traversal(self):
+        elements=[]
+        if self.left:
+            elements+=self.left.post_order_traversal()
+        if self.right:
+            elements+=self.right.post_order_traversal()
+        elements.append(self.data)
+        
+        return elements
+        
+    def search(self,k):
+        if k==self.data:
+            return True
+        
+        #seaching in left subtree
+        if k<self.data:
+            if self.left:
+                return self.left.search(k)
+            else:
+                return False
+        
+        #searching in right sub tree
+        if k>self.data:
+            if self.right:
+                return self.right.search(k)
+            else:
+                return False
+               
+    def find_min(self):
+        if self.left is None:
+            return self.data
+        return self.left.find_min()
+    
+    def find_max(self):
+        if self.right is None:
+            return self.data
+        
+        return self.right.find_max()
+        
+    def find_sum(self):
+        
+        left_sum=self.left.find_sum() if self.left else 0
+        
+        right_sum=self.right.find_sum() if self.right else 0
+        
+        return self.data+left_sum+right_sum
+        
+def build_bst(elements):
+    
+    root=BinarySearchTree(elements[0])
+    for i in elements:
+        root.add_child(i)
+    return root
+
+if __name__=='__main__':
+    numbers=[30,50,2,34,8,90,5,22]
+    n=build_bst(numbers)
+    print(n.in_order_traversal())
+    print(n.post_order_traversal())
+    print(n.pre_order_traversal())
+    print(n.search(5))
+    print(n.search(30))
+    print(n.search(51))
+    print(n.search(22))
+    print(n.find_min())
+    print(n.find_max())
+    print(n.find_sum())
+    
+    words=['urvashi','madhu','pratibha','priyanka']
+    w=build_bst(words)
+    print(w.in_order_traversal())
+    print(w.search('madhu'))
+    print(w.search('shubham'))
+    print(w.in_order_traversal())
+    print(w.post_order_traversal())
+    print(w.pre_order_traversal())
+    print(w.find_min())
+    print(w.find_max())
